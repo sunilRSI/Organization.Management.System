@@ -33,7 +33,7 @@ namespace Organization.Repository.Repository.DbContext.Command
         }
         public async Task CreateTable(string TableName)
         {
-            EmployeeReadModel employeeReadModel;
+            Entity.Models.Employee employee;
             try
             {
                 bool tableExist = await isTableExistAsync(TableName);
@@ -46,7 +46,7 @@ namespace Organization.Repository.Repository.DbContext.Command
                         {
                             new AttributeDefinition
                             {
-                                AttributeName = nameof(employeeReadModel.Id),
+                                AttributeName = nameof(employee.Id),
                                 AttributeType = ScalarAttributeType.S
                             },
                             // new AttributeDefinition
@@ -59,7 +59,7 @@ namespace Organization.Repository.Repository.DbContext.Command
                         {
                              new KeySchemaElement
                                 {
-                                    AttributeName = nameof(employeeReadModel.Id),
+                                    AttributeName = nameof(employee.Id),
                                     KeyType =KeyType.HASH
                                 },
                              //new KeySchemaElement
@@ -84,10 +84,10 @@ namespace Organization.Repository.Repository.DbContext.Command
                     }
                     var item = new Dictionary<string, AttributeValue>
                     {
-                        [nameof(employeeReadModel.Id)] = new AttributeValue { S = Guid.NewGuid().ToString() },
-                        [nameof(employeeReadModel.Name)] = new AttributeValue { S = "Default" },
-                        [nameof(employeeReadModel.Designation)] = new AttributeValue { S = "Default" },
-                        [nameof(employeeReadModel.Age)] = new AttributeValue { N = "0" }
+                        [nameof(employee.Id)] = new AttributeValue { S = Guid.NewGuid().ToString() },
+                        [nameof(employee.Name)] = new AttributeValue { S = "Default" },
+                        [nameof(employee.Designation)] = new AttributeValue { S = "Default" },
+                        [nameof(employee.Age)] = new AttributeValue { N = "0" }
                     };
 
                     var request2 = new PutItemRequest

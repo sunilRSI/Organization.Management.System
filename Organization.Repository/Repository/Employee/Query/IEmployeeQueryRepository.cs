@@ -9,8 +9,8 @@ namespace Organization.Repository.Repository.Employee.Query
 {
     public interface IEmployeeQueryRepository
     {
-        public Task<EmployeeReadModel> GetEmployeeByIdAsync(Guid Id, CancellationToken cancellationToken);
-        public Task<IEnumerable<EmployeeReadModel>> GetAllEmployeeAsync(CancellationToken cancellationToken);
-        public Task<IEnumerable<EmployeeReadModel>> FindEmployeeAsync(EmployeeCreateModel employeeFindModel, CancellationToken cancellationToken);
+        public Task<Entity.Models.Employee> GetEmployeeByIdAsync(Guid Id, CancellationToken cancellationToken);
+        public Task<IEnumerable<Entity.Models.Employee>> GetAllEmployeeAsync(CancellationToken cancellationToken);
+        public Task<IEnumerable<Entity.Models.Employee>> FindEmployeeAsync(Entity.Models.Employee employeeFindModel, CancellationToken cancellationToken);
     }
 }

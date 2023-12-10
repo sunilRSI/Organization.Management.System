@@ -1,4 +1,6 @@
-﻿using Organization.Entity.Models;
+﻿using AutoMapper;
+using Organization.Business.Employeee.Models;
+using Organization.Entity.Models;
 using Organization.Repository.Repository.SQS.Command;
 using System;
 using System.Collections.Generic;
@@ -11,10 +13,12 @@ namespace Organization.Business.SQS.Command
     public class SQSCommandManager : ISQSCommandManager
     {
         private readonly ISQSCommandRepository _sQSCommandRepository;
+        private readonly IMapper _mapper;
 
-        public SQSCommandManager(ISQSCommandRepository sQSCommandRepository)
+        public SQSCommandManager(ISQSCommandRepository sQSCommandRepository,IMapper mapper)
         {
             _sQSCommandRepository = sQSCommandRepository;
+            _mapper= mapper;
 
         }
         public async Task Initialize()
@@ -24,7 +28,8 @@ namespace Organization.Business.SQS.Command
 
         public async Task SendMessageAsync(string QueueName, EmployeeCreateModel employeeCreateModel, CancellationToken cancellationToken)
         {
-            await _sQSCommandRepository.SendMessageAsync(QueueName, employeeCreateModel, cancellationToken);
+            var employye= _mapper.Map<Entity.Models.Employee>(employeeCreateModel);
+            await _sQSCommandRepository.SendMessageAsync(QueueName, employye, cancellationToken);
         }
     }
 }

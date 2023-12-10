@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Organization.Business.Employeee.Command;
+using Organization.Business.Employeee.Models;
 using Organization.Business.SQS.Command;
-using Organization.Entity.Constants;
-using Organization.Entity.Models;
-using Organization.Repository.Repository.SQS.Command;
+using Organization.Entity.Constants; 
 
 namespace Organization.Api.Controllers.Command
 {
@@ -35,7 +34,7 @@ namespace Organization.Api.Controllers.Command
                     throw new InvalidDataException();
                 }
                 var employee = await _employeeCommandManger.CreateEmployeeAsync(employeeCreateModel, cancellationToken);
-                await _sQSCommandManager.SendMessageAsync(EmployeeSQSQueueName.EmpCreated, employeeCreateModel, cancellationToken);
+                //await _sQSCommandManager.SendMessageAsync(EmployeeSQSQueueName.EmpCreated, employeeCreateModel, cancellationToken);
                 return Created("", employee);
             }
             catch (Exception ex)

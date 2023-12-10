@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 
 namespace Organization.IdentityServer.Controllers
 {
@@ -20,6 +21,7 @@ namespace Organization.IdentityServer.Controllers
         [HttpGet]
         public async Task<IActionResult> GetToken([Required] string UserId, [Required] string Password, CancellationToken cancellationToken = default)
         {
+
             TestUser testUser = IdentityConfiguration.TestUsers.FirstOrDefault(x => x.Username == UserId && x.Password == Password);
             if (testUser == null)
             {

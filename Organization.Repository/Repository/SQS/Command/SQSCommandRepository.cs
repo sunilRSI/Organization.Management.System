@@ -37,14 +37,14 @@ namespace Organization.Repository.Repository.SQS.Command
             throw new NotImplementedException();
         }
 
-        public async Task SendMessageAsync(string QueueName, EmployeeCreateModel employeeCreateModel, CancellationToken cancellationToken)
+        public async Task SendMessageAsync(string QueueName, Entity.Models.Employee employee, CancellationToken cancellationToken)
         {
 
             GetQueueUrlResponse getQueueUrlResponse = await _sqsClient.GetQueueUrlAsync(QueueName, cancellationToken);
             SendMessageRequest sendMessageRequest = new SendMessageRequest
             {
                 QueueUrl = getQueueUrlResponse.QueueUrl,
-                MessageBody = JsonSerializer.Serialize(employeeCreateModel),
+                MessageBody = JsonSerializer.Serialize(employee),
             };
             SendMessageResponse messageResponse = await _sqsClient.SendMessageAsync(sendMessageRequest, cancellationToken);
         }

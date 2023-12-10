@@ -1,11 +1,6 @@
 ﻿using Amazon.SQS.Model;
 using Newtonsoft.Json;
-using Organization.Entity.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Organization.Entity.Models; 
 
 namespace Organization.Worker.Service
 {
@@ -16,7 +11,7 @@ namespace Organization.Worker.Service
             bool MesaageProcessed = false;
             try
             {
-                var queueMessage = JsonConvert.DeserializeObject<EmployeeReadModel>(message.Body);
+                var queueMessage = JsonConvert.DeserializeObject<Employee>(message.Body);
                 MesaageProcessed = true;
                 //applay Processing logic
 

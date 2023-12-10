@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Organization.Business.Employeee.Models;
 using Organization.Business.Employeee.Query;
 
 namespace Organization.Api.Controllers.Query
@@ -46,6 +47,25 @@ namespace Organization.Api.Controllers.Query
             try
             {
                 var employee = await _employeeQueryManger.GetAllEmployeeAsync(cancellationToken);
+                return Ok(employee);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
+            return BadRequest();
+        }
+
+
+        [HttpPost]
+        [Route("SearchEmployee")]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> SearchEmployee([FromBody] EmployeeCreateModel employeeSearchModel ,CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var employee = await _employeeQueryManger.FindEmployeeAsync(employeeSearchModel,cancellationToken);
                 return Ok(employee);
             }
             catch (Exception ex)

@@ -17,22 +17,17 @@ namespace Organization.Repository.Repository.Employee.Command
         {
             _dynamoDBContext = context;
         }
-        public async Task<EmployeeReadModel> CreateEmployeeAsync(EmployeeCreateModel employeeCreateModel, CancellationToken cancellationToken)
+        public async Task<Entity.Models.Employee> CreateEmployeeAsync(Entity.Models.Employee employee, CancellationToken cancellationToken)
         {
-            EmployeeReadModel employee = new EmployeeReadModel();
-            employee.Id = Guid.NewGuid();
-            employee.Name = employeeCreateModel.Name;
-            employee.Designation = employeeCreateModel.Designation;
-            employee.Age = employeeCreateModel.Age;
             await _dynamoDBContext.SaveAsync(employee, cancellationToken);
             return employee;
         }
 
         public async Task DeleteEmployeeAsync(Guid Id, CancellationToken cancellationToken)
         {
-            await _dynamoDBContext.DeleteAsync<EmployeeReadModel>(Id, cancellationToken);
+            await _dynamoDBContext.DeleteAsync<Entity.Models.Employee>(Id, cancellationToken);
         }
-        public async Task UpdateEmployeeAsync(EmployeeReadModel employeeUpdateModel, CancellationToken cancellationToken)
+        public async Task UpdateEmployeeAsync(Entity.Models.Employee employeeUpdateModel, CancellationToken cancellationToken)
         {
             await _dynamoDBContext.SaveAsync(employeeUpdateModel, cancellationToken);
         }

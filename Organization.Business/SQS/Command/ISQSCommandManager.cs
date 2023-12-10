@@ -1,9 +1,4 @@
-﻿using Organization.Entity.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Organization.Business.Employeee.Models; 
 
 namespace Organization.Business.SQS.Command
 {

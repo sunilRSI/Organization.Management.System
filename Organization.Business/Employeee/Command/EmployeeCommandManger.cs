@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Organization.Business.Employeee.Models;
+using Organization.Entity.Constants;
 using Organization.Repository.Repository.Employee.Command;
+using Organization.Repository.Repository.SQS.Command;
 
 namespace Organization.Business.Employeee.Command
 {
@@ -8,11 +10,13 @@ namespace Organization.Business.Employeee.Command
     {
         private readonly IEmployeeCommandRepository _employeeCommandRepository;
         private readonly IMapper _mapper;
+        private readonly ISQSCommandRepository _sQSCommandRepository;
 
-        public EmployeeCommandManger(IEmployeeCommandRepository employeeCommandRepository, IMapper mapper)
+        public EmployeeCommandManger(IEmployeeCommandRepository employeeCommandRepository, ISQSCommandRepository sQSCommandRepository, IMapper mapper)
         {
             _employeeCommandRepository = employeeCommandRepository;
             _mapper = mapper;
+            _sQSCommandRepository= sQSCommandRepository;
         }
 
         public async Task<EmployeeReadModel> CreateEmployeeAsync(EmployeeCreateModel employeeCreateModel, CancellationToken cancellationToken)
@@ -25,6 +29,8 @@ namespace Organization.Business.Employeee.Command
             //employee.Age = employeeCreateModel.Age;
             employee = await _employeeCommandRepository.CreateEmployeeAsync(employee, cancellationToken);
             EmployeeReadModel employeeReadModel = _mapper.Map<EmployeeReadModel>(employee);
+
+            await _sQSCommandRepository.SendMessageAsync(EmployeeSQSQueueName.EmpCreated, employee, cancellationToken);
             return employeeReadModel;
         }
 

@@ -12,14 +12,11 @@ namespace Organization.Api.Controllers.Command
     public class EmployeeCommandController : ControllerBase
     {
         private readonly IEmployeeCommandManger _employeeCommandManger;
-        private readonly ILogger<EmployeeCommandManger> _logger;
-        private readonly ISQSCommandManager _sQSCommandManager;
-
-        public EmployeeCommandController(IEmployeeCommandManger employeeCommandManger, ISQSCommandManager sQSCommandManager, ILogger<EmployeeCommandManger> logger)
+        private readonly ILogger<EmployeeCommandManger> _logger; 
+        public EmployeeCommandController(IEmployeeCommandManger employeeCommandManger, ILogger<EmployeeCommandManger> logger)
         {
             _employeeCommandManger = employeeCommandManger;
-            _logger = logger;
-            _sQSCommandManager = sQSCommandManager;
+            _logger = logger; 
         }
         [HttpPost]
         [Route("AddEmployee")]
@@ -34,7 +31,6 @@ namespace Organization.Api.Controllers.Command
                     throw new InvalidDataException();
                 }
                 var employee = await _employeeCommandManger.CreateEmployeeAsync(employeeCreateModel, cancellationToken);
-                //await _sQSCommandManager.SendMessageAsync(EmployeeSQSQueueName.EmpCreated, employeeCreateModel, cancellationToken);
                 return Created("", employee);
             }
             catch (Exception ex)

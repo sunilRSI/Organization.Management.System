@@ -52,6 +52,11 @@ namespace Organization.Api.Controllers.Command
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    throw new InvalidDataException();
+                }
+
                 await _employeeCommandManger.UpdateEmployeeAsync(employeeUpdateModel, cancellationToken);
                 return NoContent();
             }

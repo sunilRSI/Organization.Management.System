@@ -17,6 +17,7 @@ namespace Organization.Business.Employeee.Command
 
         public async Task<EmployeeReadModel> CreateEmployeeAsync(EmployeeCreateModel employeeCreateModel, CancellationToken cancellationToken)
         {
+
             Entity.Models.Employee employee = _mapper.Map<Entity.Models.Employee>(employeeCreateModel);
             employee.Id = Guid.NewGuid();
             //employee.Name = employeeCreateModel.Name;

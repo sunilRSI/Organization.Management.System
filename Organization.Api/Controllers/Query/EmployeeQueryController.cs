@@ -65,6 +65,10 @@ namespace Organization.Api.Controllers.Query
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    throw new InvalidDataException();
+                }
                 var employee = await _employeeQueryManger.FindEmployeeAsync(employeeSearchModel,cancellationToken);
                 return Ok(employee);
             }

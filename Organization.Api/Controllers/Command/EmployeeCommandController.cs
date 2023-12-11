@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper.Internal;
+using Microsoft.AspNetCore.Mvc;
 using Organization.Business.Employeee.Command;
 using Organization.Business.Employeee.Models;
 using Organization.Business.SQS.Command;
@@ -28,7 +29,7 @@ namespace Organization.Api.Controllers.Command
             {
                 if (!ModelState.IsValid)
                 {
-                    throw new InvalidDataException();
+                    return BadRequest("Invalid input model");
                 }
                 var employee = await _employeeCommandManger.CreateEmployeeAsync(employeeCreateModel, cancellationToken);
                 return Created("", employee);
@@ -50,7 +51,7 @@ namespace Organization.Api.Controllers.Command
             {
                 if (!ModelState.IsValid)
                 {
-                    throw new InvalidDataException();
+                    return BadRequest("Invalid input model");
                 }
 
                 await _employeeCommandManger.UpdateEmployeeAsync(employeeUpdateModel, cancellationToken);

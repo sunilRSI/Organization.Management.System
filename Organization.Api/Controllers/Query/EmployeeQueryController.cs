@@ -67,7 +67,7 @@ namespace Organization.Api.Controllers.Query
             {
                 if (!ModelState.IsValid)
                 {
-                    throw new InvalidDataException();
+                    BadRequest("Invalid input model");
                 }
                 var employee = await _employeeQueryManger.FindEmployeeAsync(employeeSearchModel,cancellationToken);
                 return Ok(employee);

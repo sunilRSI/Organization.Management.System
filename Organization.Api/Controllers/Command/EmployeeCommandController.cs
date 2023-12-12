@@ -13,8 +13,8 @@ namespace Organization.Api.Controllers.Command
     public class EmployeeCommandController : ControllerBase
     {
         private readonly IEmployeeCommandManger _employeeCommandManger;
-        private readonly ILogger<EmployeeCommandManger> _logger; 
-        public EmployeeCommandController(IEmployeeCommandManger employeeCommandManger, ILogger<EmployeeCommandManger> logger)
+        private readonly ILogger<EmployeeCommandController> _logger; 
+        public EmployeeCommandController(IEmployeeCommandManger employeeCommandManger, ILogger<EmployeeCommandController> logger)
         {
             _employeeCommandManger = employeeCommandManger;
             _logger = logger; 
